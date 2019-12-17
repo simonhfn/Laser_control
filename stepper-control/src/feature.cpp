@@ -7,8 +7,8 @@ float calibrate() {
     bool validInput = false;
     char key_pressed = ' ';
 
-    int N_steps_coarse = mm_to_steps(3,carrito);
-    int N_steps_fine = mm_to_steps(1,carrito);
+    int N_steps_coarse = mm_to_steps(2,carrito);
+    int N_steps_fine = mm_to_steps(0.5,carrito);
 
     int steps_to_left = 0;
     int steps_to_right = 0;
@@ -59,7 +59,7 @@ float calibrate() {
             carrito.setDirection(LOW);
             carrito.step(N_steps_fine);
             steps_to_left+=N_steps_fine;
-        } else if (key_pressed == '4') {
+        } else if (key_pressed == '5') {
             // go right
             carrito.setDirection(HIGH);
             carrito.step(N_steps_fine);
@@ -105,7 +105,7 @@ void barrido_archim(functions_t func) {
     lcd.print(parameters.a);
     lcd.setCursor(7,1);     
     lcd.print(parameters.b);
-    delay(2000);
+    delay(500);
     
     carrito.log = true; // DEBUG: esto es harcodeado para imprimir
     target.log = false; // DEBUG: esto es harcodeado
@@ -174,7 +174,7 @@ void barrido_linear(functions_t func) {
     lcd.print(parameters.linear_speed);
     lcd.setCursor(7,1);     
     lcd.print(parameters.angular_speed);
-    delay(2000);
+    delay(500);
     
     carrito.log = true; // DEBUG: esto es harcodeado para imprimir
     target.log = false; // DEBUG: esto es harcodeado
@@ -222,7 +222,9 @@ void wait_to_start(vecint parametros) {
     char button = '1';
     Serial.println("Press 0 to start:");
 
-    lcd.print("Press 0 to start");
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Press start");
     int ind=0;
     while(button!='*') {
         button = caminoBT.read();
@@ -284,8 +286,8 @@ void manual_control(motor &chosenMotor) {
     lcd.setCursor(7,1);     
     lcd.print(parameters.coarse);
     delay(500);
-    int N_steps_fine = mm_to_steps(parameters.fine, chosenMotor);
-    int N_steps_coarse = mm_to_steps(parameters.coarse, chosenMotor);
+    int N_steps_fine = mm_to_steps(0.5, chosenMotor);
+    int N_steps_coarse = mm_to_steps(2, chosenMotor);
 
     lcd.clear();
     lcd.setCursor(0,0); 
