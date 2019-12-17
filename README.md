@@ -1,2 +1,3 @@
 # laser-control
-Laser control system using Arduino
+motor control system using Arduino for a laser utilisation
+
